@@ -28,25 +28,29 @@ I'm using `PyTorch 0.4` in `Python 3.6`.
 
 # Objective
 
-**To build a model that can classify a text document as one of several categories.**
+**To build a model that can label a text document as one of several categories.**
 
-Text classification is among the most ubiquitous and useful applications of neural networks.
+ We will be implementing the [Hierarchial Attention Network (HAN)](https://www.cs.cmu.edu/~hovy/papers/16HLT-hierarchical-attention-networks.pdf), one of the more interesting and interpretable text classification models.
 
-Depending on the data available, the methods may vary – from naive combinations of word embeddings, to text encoders pre-trained elsewhere on other tasks, to full-fledged classifiers that are built from the ground up.
-
-In this tutorial, we will consider this last type, made possibly by an abundance of labeled data. We will be implementing the [Hierarchial Attention Network (HAN)](https://www.cs.cmu.edu/~hovy/papers/16HLT-hierarchical-attention-networks.pdf), one of the more interesting and interpretable text classification models.
-
-This model not only classifies a document, but **also _chooses_ specific parts of the text – both sentences and individual words – that it thinks are most important.**
+This model not only classifies a document, but also _chooses_ specific parts of the text –  sentences and individual words – that it thinks are most important.
 
 ---
+
+> "I think I'm falling sick. There was some indigestion at first. But now a fever is beginning to take hold."
 
 ![](./img/health.png)
 
 ---
 
+> "I want to tell you something important. Get into the stock market and investment funds. Make some money so you can buy yourself some yogurt."
+
 ![](./img/finance.png)
 
 ---
+
+> "How do computers work? I have a CPU I want to use. But my keyboard and motherboard do not help."
+
+> "You can just google how computers work. Honestly, its easy."
 
 ![](./img/computers.png)
 
