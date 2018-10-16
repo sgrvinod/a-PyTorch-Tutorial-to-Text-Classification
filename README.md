@@ -49,7 +49,7 @@ This model not only classifies a document, but also _chooses_ specific parts of 
 ---
 
 > "How do computers work? I have a CPU I want to use. But my keyboard and motherboard do not help."
-
+>
 > "You can just google how computers work. Honestly, its easy."
 
 ![](./img/computers.png)
