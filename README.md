@@ -36,9 +36,9 @@ Depending on the data available, the methods may vary – from naive combination
 
 In this tutorial, we will consider this last type, made possibly by an abundance of labeled data. We will be implementing the [Hierarchial Attention Network (HAN)](https://www.cs.cmu.edu/~hovy/papers/16HLT-hierarchical-attention-networks.pdf), one of the more interesting and interpretable text classification models.
 
-This model will not only classify your document, but also _choose_ specific parts of the text – both sentences and individual words – that it thinks are most important.
+This model not only classifies a document, but **also _chooses_ specific parts of the text – both sentences and individual words – that it thinks are most important.**
 
-Some examples:
+---
 
 ![](./img/health.png)
 
