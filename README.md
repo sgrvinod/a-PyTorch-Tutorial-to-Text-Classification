@@ -42,6 +42,12 @@ This model not only classifies a document, but also _chooses_ specific parts of 
 
 ---
 
+> "But think about it! It's so cool. Physics is really all about math. What Feynman said, hehe."
+
+![](./img/science.png)
+
+---
+
 > "I want to tell you something important. Get into the stock market and investment funds. Make some money so you can buy yourself some yogurt."
 
 ![](./img/finance.png)
@@ -53,12 +59,6 @@ This model not only classifies a document, but also _chooses_ specific parts of 
 > "You can just google how computers work. Honestly, its easy."
 
 ![](./img/computers.png)
-
----
-
-> "But think about it! It's so cool. Physics is really all about math. What Feynman said, hehe."
-
-![](./img/science.png)
 
 ---
 
