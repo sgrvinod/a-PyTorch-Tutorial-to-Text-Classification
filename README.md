@@ -49,6 +49,7 @@ This model not only classifies a document, but also _chooses_ specific parts of 
 ---
 
 > "How do computers work? I have a CPU I want to use. But my keyboard and motherboard do not help."
+>
 > "You can just google how computers work. Honestly, its easy."
 
 ![](./img/computers.png)
@@ -62,6 +63,7 @@ This model not only classifies a document, but also _chooses_ specific parts of 
 ---
 
 > "You know what's wrong with this country? Republicans and democrats. Always at each other's throats"
+>
 > "There's no respect, no bipartisanship."
 
 ![](./img/politics.png)
