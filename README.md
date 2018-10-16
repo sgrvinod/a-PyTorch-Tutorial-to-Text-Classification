@@ -38,12 +38,9 @@ In this tutorial, we will consider this last type, made possibly by an abundance
 
 This model will not only classify your document, but also _choose_ specific parts of the text – both sentences and individual words – that it thinks are most important.
 
+Here are some examples:
+
 ![](./img/health.png)
-
-
----
-
-![](./img/science.png)
 
 ---
 
@@ -52,6 +49,10 @@ This model will not only classify your document, but also _choose_ specific part
 ---
 
 ![](./img/computers.png)
+
+---
+
+![](./img/science.png)
 
 ---
 
