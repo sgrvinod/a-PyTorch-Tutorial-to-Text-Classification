@@ -1,6 +1,6 @@
 This is a **[PyTorch](https://pytorch.org) Tutorial to Text Classification**.
 
-This is the third in a series of tutorials I plan to write about _implementing_ cool models on your own with the amazing PyTorch library.
+This is the third in [a series of tutorials](https://github.com/sgrvinod/Deep-Tutorials-for-PyTorch) I plan to write about _implementing_ cool models on your own with the amazing PyTorch library.
 
 Basic knowledge of PyTorch, recurrent neural networks is assumed.
 
@@ -37,9 +37,6 @@ Depending on the data available, the methods may vary – from naive combination
 In this tutorial, we will consider this last type, made possibly by an abundance of labeled data. We will be implementing the [Hierarchial Attention Network (HAN)](https://www.cs.cmu.edu/~hovy/papers/16HLT-hierarchical-attention-networks.pdf), one of the more interesting and interpretable text classification models.
 
 This model will not only classify your document, but also _choose_ specific parts of the text – both sentences and individual words – that it thinks are most important.
-
-
----
 
 ![](./img/health.png)
 
