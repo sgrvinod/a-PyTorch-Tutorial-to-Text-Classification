@@ -56,7 +56,7 @@ class HierarchialAttentionNetwork(nn.Module):
 
 class SentenceAttention(nn.Module):
     """
-    Sentence-level attention module.
+    The sentence-level attention module.
     """
 
     def __init__(self, vocab_size, emb_size, word_rnn_size, sentence_rnn_size, word_rnn_layers, sentence_rnn_layers,
@@ -173,7 +173,7 @@ class SentenceAttention(nn.Module):
 
 class WordAttention(nn.Module):
     """
-    Word-level attention module.
+    The word-level attention module.
     """
 
     def __init__(self, vocab_size, emb_size, word_rnn_size, word_rnn_layers, word_att_size, dropout):
