@@ -87,13 +87,11 @@ def visualize_attention(doc, scores, word_alphas, sentence_alphas, words_in_each
     :param sentence_alphas: attention weights of sentences, a tensor of size (n_sentences)
     :param words_in_each_sentence: sentence lengths, a tensor of size (n_sentences)
     """
-    print(sentence_alphas)
     # Find best prediction
     score, prediction = scores.max(dim=0)
     prediction = '{category} ({score:.2f}%)'.format(category=rev_label_map[prediction.item()], score=score.item() * 100)
 
     # For each word, find it's effective importance (sentence alpha * word alpha)
-    print(words_in_each_sentence)
     alphas = (sentence_alphas.unsqueeze(1) * word_alphas * words_in_each_sentence.unsqueeze(
         1).float() / words_in_each_sentence.max().float())
     # alphas = word_alphas * words_in_each_sentence.unsqueeze(1).float() / words_in_each_sentence.max().float()
@@ -185,10 +183,11 @@ def visualize_attention(doc, scores, word_alphas, sentence_alphas, words_in_each
     img.show()
 
 
+
 if __name__ == '__main__':
     document = 'How do computers work? I have a CPU I want to use. But my keyboard and motherboard do not help.\n\n You can just google how computers work. Honestly, its easy.'
-    document = 'But think about it! It\'s so cool. Math is really useful in astronomy. Physicists use mathematical theorems to explore the mysteries of the universe.'
+    document = 'But think about it! It\'s so cool. Math is really useful in astronomy. Physicists use math theorems to explore the mysteries of the universe.'
     document = "I think I'm falling sick. There was some indigestion at first. But now a fever is beginning to take hold."
-    document = "I want to tell you something important. It's time you educated yourself about the stock market and investment funds. Make some money so you can buy yourself some yogurt."
-    document = "You know what's wrong with this country? The republicans and democrats are always at each other's throats. There's no respect, no bipartisanship."
+    document = "I want to tell you something important. Get into the stock market and investment funds. Make some money so you can buy yourself some yogurt."
+    document = "You know what's wrong with this country? republicans and democrats always at each other's throats\n There's no respect, no bipartisanship."
     visualize_attention(*classify(document))
