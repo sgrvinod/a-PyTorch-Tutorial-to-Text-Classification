@@ -256,7 +256,7 @@ def save_checkpoint(epoch, model, optimizer, best_acc, word_map, epochs_since_im
 
     :param epoch: epoch number
     :param model: model
-    :param optimizer: optimized
+    :param optimizer: optimizer
     :param best_acc: best accuracy achieved so far (not necessarily in this checkpoint)
     :param word_map: word map
     :param epochs_since_improvement: number of epochs since last improvement
