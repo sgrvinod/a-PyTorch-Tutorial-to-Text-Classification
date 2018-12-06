@@ -80,4 +80,4 @@ I am still writing this tutorial.
 
 In the meantime, you could take a look at the code – it works!
 
-We achieve an accuracy of **74.8%** (against **75.8%** in the paper) on the Yahoo Answer dataset.
+We achieve an accuracy of **74.8%** (against **75.8%** in the paper) on the [Yahoo Answer dataset](https://drive.google.com/open?id=0Bz8a_Dbh9Qhbd2JNdDBsQUdocVU).
