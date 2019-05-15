@@ -1,6 +1,6 @@
 This is a **[PyTorch](https://pytorch.org) Tutorial to Text Classification**.
 
-This is the third in [a series of tutorials](https://github.com/sgrvinod/Deep-Tutorials-for-PyTorch) I plan to write about _implementing_ cool models on your own with the amazing PyTorch library.
+This is the fourth in [a series of tutorials](https://github.com/sgrvinod/Deep-Tutorials-for-PyTorch) I plan to write about _implementing_ cool models on your own with the amazing PyTorch library.
 
 Basic knowledge of PyTorch, recurrent neural networks is assumed.
 
@@ -80,4 +80,4 @@ I am still writing this tutorial.
 
 In the meantime, you could take a look at the code – it works!
 
-We achieve an accuracy of **74.8%** (against **75.8%** in the paper) on the Yahoo Answer dataset.
+We achieve an accuracy of **75.1%** (against **75.8%** in the paper) on the Yahoo Answer dataset.
