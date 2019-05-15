@@ -29,11 +29,10 @@ batch_size = 64  # batch size
 lr = 1e-3  # learning rate
 momentum = 0.9  # momentum
 workers = 4  # number of workers for loading data in the DataLoader
-epochs = 200  # number of epochs to run without early-stopping
+epochs = 2  # number of epochs to run without early-stopping
 grad_clip = None  # clip gradients at this value
 print_freq = 2000  # print training or validation status every __ batches
 checkpoint = None  # path to model checkpoint, None if none
-best_acc = 0.  # assume the accuracy is 0 at first
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -44,7 +43,7 @@ def main():
     """
     Training and validation.
     """
-    global best_acc, epochs_since_improvement, checkpoint, start_epoch, word_map
+    global checkpoint, start_epoch, word_map
 
     # Initialize model or load checkpoint
     if checkpoint is not None:
@@ -53,10 +52,8 @@ def main():
         optimizer = checkpoint['optimizer']
         word_map = checkpoint['word_map']
         start_epoch = checkpoint['epoch'] + 1
-        best_acc = checkpoint['best_acc']
-        epochs_since_improvement = checkpoint['epochs_since_improvement']
         print(
-            '\nLoaded checkpoint from epoch %d, with a previous best accuracy of %.3f.\n' % (start_epoch - 1, best_acc))
+            '\nLoaded checkpoint from epoch %d.\n' % (start_epoch - 1))
     else:
         embeddings, emb_size = load_word2vec_embeddings(word2vec_file, word_map)  # load pre-trained word2vec embeddings
 
@@ -85,8 +82,6 @@ def main():
     # DataLoaders
     train_loader = torch.utils.data.DataLoader(HANDataset(data_folder, 'train'), batch_size=batch_size, shuffle=True,
                                                num_workers=workers, pin_memory=True)
-    val_loader = torch.utils.data.DataLoader(HANDataset(data_folder, 'test'), batch_size=batch_size, shuffle=True,
-                                             num_workers=workers, pin_memory=True)
 
     # Epochs
     for epoch in range(start_epoch, epochs):
@@ -97,25 +92,11 @@ def main():
               optimizer=optimizer,
               epoch=epoch)
 
-        # One epoch's validation
-        acc = validate(val_loader=val_loader,
-                       model=model,
-                       criterion=criterion)
-
-        # Did validation accuracy improve?
-        is_best = acc > best_acc
-        best_acc = max(acc, best_acc)
-        if not is_best:
-            epochs_since_improvement += 1
-            print("\nEpochs since improvement: %d\n" % (epochs_since_improvement,))
-        else:
-            epochs_since_improvement = 0
-
         # Decay learning rate every epoch
-        # adjust_learning_rate(optimizer, 0.5)
+        adjust_learning_rate(optimizer, 0.1)
 
         # Save checkpoint
-        save_checkpoint(epoch, model, optimizer, best_acc, word_map, epochs_since_improvement, is_best)
+        save_checkpoint(epoch, model, optimizer, word_map)
 
 
 def train(train_loader, model, criterion, optimizer, epoch):
@@ -188,70 +169,6 @@ def train(train_loader, model, criterion, optimizer, epoch):
                                                                   batch_time=batch_time,
                                                                   data_time=data_time, loss=losses,
                                                                   acc=accs))
-
-
-def validate(val_loader, model, criterion):
-    """
-    Performs one epoch's validation.
-
-    :param val_loader: DataLoader for validation data
-    :param model: model
-    :param criterion: cross entropy loss layer
-    :return: validation accuracy score
-    """
-    model.eval()
-
-    batch_time = AverageMeter()  # forward prop. + back prop. time per batch
-    data_time = AverageMeter()  # data loading time per batch
-    losses = AverageMeter()  # cross entropy loss
-    accs = AverageMeter()  # accuracies
-
-    start = time.time()
-
-    # Batches
-    for i, (documents, sentences_per_document, words_per_sentence, labels) in enumerate(val_loader):
-
-        data_time.update(time.time() - start)
-
-        documents = documents.to(device)  # (batch_size, sentence_limit, word_limit)
-        sentences_per_document = sentences_per_document.squeeze(1).to(device)  # (batch_size)
-        words_per_sentence = words_per_sentence.to(device)  # (batch_size, sentence_limit)
-        labels = labels.squeeze(1).to(device)  # (batch_size)
-
-        # Forward prop.
-        scores, word_alphas, sentence_alphas = model(documents, sentences_per_document,
-                                                     words_per_sentence)  # (n_documents, n_classes), (n_documents, max_doc_len_in_batch, max_sent_len_in_batch), (n_documents, max_doc_len_in_batch)
-
-        # Loss
-        loss = criterion(scores, labels)
-
-        # Find accuracy
-        _, predictions = scores.max(dim=1)  # (n_documents)
-        correct_predictions = torch.eq(predictions, labels).sum().item()
-        accuracy = correct_predictions / labels.size(0)
-
-        # Keep track of metrics
-        losses.update(loss.item(), labels.size(0))
-        batch_time.update(time.time() - start)
-        accs.update(accuracy, labels.size(0))
-
-        start = time.time()
-
-        # Print training status
-        if i % print_freq == 0:
-            print('[{0}/{1}]\t'
-                  'Batch Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                  'Data Load Time {data_time.val:.3f} ({data_time.avg:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Accuracy {acc.val:.3f} ({acc.avg:.3f})'.format(i, len(val_loader),
-                                                                  batch_time=batch_time,
-                                                                  data_time=data_time, loss=losses,
-                                                                  acc=accs))
-
-    print('\n * LOSS - {loss.avg:.3f}, ACCURACY - {acc.avg:.3f}\n'.format(loss=losses,
-                                                                          acc=accs))
-
-    return accs.avg
 
 
 if __name__ == '__main__':
