@@ -148,7 +148,7 @@ class SentenceAttention(nn.Module):
                                                       unsorted_indices=packed_sentences.unsorted_indices),
                                        batch_first=True)  # (n_documents, max(sentences_per_document))
 
-        # Calculate softmax values
+        # Calculate softmax values as now sentences are arranged in their respective documents
         sentence_alphas = att_s / torch.sum(att_s, dim=1, keepdim=True)  # (n_documents, max(sentences_per_document))
 
         # Similarly re-arrange sentence-level RNN outputs as documents by re-padding with 0s (SENTENCES -> DOCUMENTS)
