@@ -76,12 +76,12 @@ print(fc_output)
 # 1. The sequences are sorted by decreasing sequence lengths, which is the equivalent of:
 sorted_lengths, sort_indices = torch.sort(seq_lengths, descending=True)
 sorted_sequences = sequences[sort_indices]
+# The reason for the sorting is that the non-pads must be concentrated at the top
+# This prevents alignment problems when the pads are eliminated
 print(sort_indices)
 print(packed_sequences.sorted_indices)
 print(sorted_sequences)
 print(sorted_lengths)
-# The reason for the sorting is that the non-pads must be concentrated at the top
-# This prevents alignment problems when the pads are eliminated
 
 # 2. At each timestep, the effective batch size (excluding the pads) is noted, which is the equivalent of:
 effective_batch_sizes = [(i < sorted_lengths).sum().item() for i in range(sorted_sequences.size(1))]
