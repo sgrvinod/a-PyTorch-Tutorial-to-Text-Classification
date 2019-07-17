@@ -85,7 +85,7 @@ print(sorted_lengths)
 
 # 2. At each timestep, the effective batch size (excluding the pads) is noted, which is the equivalent of:
 effective_batch_sizes = [(i < sorted_lengths).sum().item() for i in range(sorted_sequences.size(1))]
-print(effective_batch_sizes)  # the 0 at the end means that the last timestep is all pads, which can be ignored
+print(effective_batch_sizes)
 print(packed_sequences.batch_sizes)
 
 # 3. The sequences are flattened by timestep (excluding the pads), which is the equivalent of:
