@@ -101,7 +101,7 @@ print(packed_sequences.data.squeeze(1))
 # Any other operation, such as a linear layer, can operate directly upon the flattened sequence ('data' attribute) since it doesn't contain any pads
 
 # For something like loss computation over the non-pads, it's really convenient to just do it over the 'data' attribute of a PackedSequence since it will eliminate the pads for you
-# I do this in my Image Captioning and Sequence Labeling tutorials in train.py
+# I do this in my Image Captioning and Sequence Labeling tutorials, in train.py
 
 # For custom sequential operations, using the effective batch size at each timestep to avoid computation over the pads is very useful
 # I do this in my Image Captioning and Sequence Labeling tutorials, search for 'batch_size_t'
