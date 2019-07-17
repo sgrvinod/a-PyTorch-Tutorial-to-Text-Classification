@@ -122,7 +122,7 @@ class SentenceAttention(nn.Module):
                                                      packed_words_per_sentence.data)  # (n_sentences, 2 * word_rnn_size), (n_sentences, max(words_per_sentence))
         sentences = self.dropout(sentences)
 
-        # Apply the sentence-level RNN over the sentence embeddings (PyTorch automatically applies it on the packed_sequence)
+        # Apply the sentence-level RNN over the sentence embeddings (PyTorch automatically applies it on the PackedSequence)
         packed_sentences, _ = self.sentence_rnn(PackedSequence(data=sentences,
                                                                batch_sizes=packed_sentences.batch_sizes,
                                                                sorted_indices=packed_sentences.sorted_indices,
